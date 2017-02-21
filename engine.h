@@ -17,6 +17,7 @@ private:
     sf::RenderWindow window;
     TextureManager * tManager;
     Player player;
+    sf::Clock timer;
 
 };
 
