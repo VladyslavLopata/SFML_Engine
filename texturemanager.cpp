@@ -7,11 +7,11 @@ TextureManager::TextureManager()
 
 void TextureManager::loadLevel(const std::string & levelName)
 {
-    std::ifstream fin("Textures/"+levelName+"/"+levelName+".inf");
+    std::ifstream fin("Levels/"+levelName+"/"+levelName+".inf");
     std::string tName;
     while(fin>>tName)
     {
-        if(!textures[tName].loadFromFile("Textures/"+levelName+"/"+tName+".png"))
+        if(!textures[tName].loadFromFile("Levels/"+levelName+"/"+tName+".png"))
         {
             std::cout<<"Failed to load "<<tName<<".png!\n";
         }
@@ -30,7 +30,7 @@ sf::Texture *TextureManager::getTexture(const std::string & textureName)
 
 void TextureManager::unloadLevel(const std::string & levelName)
 {
-    std::ifstream fin("Textures/"+levelName+"/"+levelName+".inf");
+    std::ifstream fin("Levels/"+levelName+"/"+levelName+".inf");
     std::string tName;
     while(getline(fin, tName))
     {
