@@ -9,7 +9,7 @@ public:
     const sf::IntRect &getRect();
     void update(const float & dt);
     void setAnimRow(const unsigned & row);
-    void reset(sf::Texture & texture, const sf::Vector2f & frameNum, const float & speed);
+    void reset(const sf::Vector2u & tSize, const sf::Vector2f & frameNum, const float & speed);
 private:
     sf::IntRect animRect;
     float curTime, speed;

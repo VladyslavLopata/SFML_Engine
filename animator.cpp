@@ -10,11 +10,11 @@ const sf::IntRect & Animator::getRect()
     return animRect;
 }
 
-void Animator::reset(sf::Texture &texture, const sf::Vector2f &frameNum, const float &speed)
+void Animator::reset(const sf::Vector2u &tSize, const sf::Vector2f &frameNum, const float &speed)
 {
     this->speed = speed;
-    dx = texture.getSize().x/frameNum.x;
-    dy = texture.getSize().y/frameNum.y;
+    dx = tSize.x/frameNum.x;
+    dy = tSize.y/frameNum.y;
     fx = frameNum.x;
     fy = frameNum.y;
     animRect = sf::Rect<int>(0,0,dx,dy);
