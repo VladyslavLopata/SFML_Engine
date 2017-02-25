@@ -2,7 +2,11 @@
 
 void Animator::setAnimRow(const unsigned &row)
 {
-    animRect.top = row*dy;
+    if(animRect.top!= row*dy)
+    {
+        animRect.top = row*dy;
+        curTime = 0;
+    }
 }
 
 const sf::IntRect & Animator::getRect()
@@ -17,7 +21,7 @@ void Animator::reset(const sf::Vector2u &tSize, const sf::Vector2f &frameNum, co
     dy = tSize.y/frameNum.y;
     fx = frameNum.x;
     fy = frameNum.y;
-    animRect = sf::Rect<int>(0,0,dx,dy);
+    animRect = sf::IntRect(0,0,dx,dy);
 }
 
 void Animator::update(const float &dt)
@@ -32,4 +36,10 @@ void Animator::update(const float &dt)
             animRect.left = 0;
         }
     }
+}
+
+void Animator::hold(float delta)
+{
+    animRect.left = 0;
+    curTime = 0;
 }

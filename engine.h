@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "player.h"
-#include "texturemanager.h"
+#include "level.h"
 
 class Engine {
 public:
@@ -15,9 +15,9 @@ private:
     void draw();
     void update();
     sf::RenderWindow window;
-    TextureManager * tManager;
     Player player;
     sf::Clock timer;
+    Level level;
 
 };
 

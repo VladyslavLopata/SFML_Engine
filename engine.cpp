@@ -1,17 +1,14 @@
 #include "engine.h"
 
 Engine::Engine() :
-    window{sf::VideoMode{800, 600, 32}, "GameWindow"},
-    tManager(new TextureManager())
+    window{sf::VideoMode{800, 600, 32}, "GameWindow"}
 {
-    player.getDrawable().setTexture(tManager->getTexture("Player"));
     timer.restart();
-    player.getDrawable().setTextureRect(sf::IntRect(0,0,16,16));
 }
 
 void Engine::start()
 {
-    player.init(tManager->getTexture("Player")->getSize());
+    player.init();
     loop();
 }
 
@@ -46,6 +43,7 @@ void Engine::draw()
 {
 
     window.clear();
+    window.draw(level);
     window.draw(player);
     window.display();
 
