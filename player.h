@@ -3,13 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include "animator.h"
+#include "collisions.h"
 
 class Player : public sf::Drawable, public sf::Transformable
 {
 public:
     Player();
     void init();
-    void handleInput(const float &delta);
+    void handleInput(const float &delta, Collisions &col);
 private:
     virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
     sf::RectangleShape sprite;

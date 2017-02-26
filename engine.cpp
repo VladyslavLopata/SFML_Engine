@@ -8,7 +8,8 @@ Engine::Engine() :
 
 void Engine::start()
 {
-    player.init();
+    level.initialize();
+    window.setFramerateLimit(60);
     loop();
 }
 
@@ -35,7 +36,7 @@ void Engine::update()
         }
     }
 
-    player.handleInput(delta);
+    level.updateInfo(delta);
 
 }
 
@@ -44,7 +45,6 @@ void Engine::draw()
 
     window.clear();
     window.draw(level);
-    window.draw(player);
     window.display();
 
 }

@@ -1,36 +1,28 @@
 #include "level.h"
-
-Level::Level()
-
+void Level::initialize()
 {
     m_texture.loadFromFile("Levels/basicTextures/tiles.png");
     parseLevelInfo("basicTextures");
+    player.init();
+    player.setPosition(32,1408);
 }
-
-Level::~Level()
-{
-
-}
-
-
 
 void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    /*auto it = mapLayers.begin();
-    while(it->isLoaded())
+    target.setView(camera);
+    for(unsigned i = 0; i < mapLayers.size(); i++)
     {
-        target.draw(*it,states);
-        ++it;
-    }*/
-    for(const auto &i:mapLayers)
-    {
-        target.draw(i,states);
+        if(i==playerLayer-1)
+        {
+            target.draw(player, states);
+        }
+        target.draw(mapLayers[i], states);
     }
 }
 
 void Level::parseLevelInfo(std::__cxx11::string levelName)
 {
-    int levelWidth, levelHeight, tileWidth, tileHeight;
+    int levelWidth, levelHeight, tileWidth, tileHeight, layerNumber = 0;
     std::ifstream fin("Levels/"+levelName+"/map.tmx");
     std::string curLine;
     while(std::getline(fin, curLine))
@@ -52,36 +44,62 @@ void Level::parseLevelInfo(std::__cxx11::string levelName)
         }
         else if (curLine.find("<layer")!=std::string::npos)
         {
+            layerNumber++;
             int pos = curLine.find("name=");
             std::string layerName = curLine.substr(pos+6, curLine.find('\"', pos+6)-pos-6);
             while (curLine.find('<')!=std::string::npos)
             {
                 std::getline(fin, curLine);
             }
-            std::vector<int> ln(levelWidth*levelHeight, 0);
-            auto it = ln.begin();
+            int *ln = new int[levelWidth*levelHeight];
+            for(int i = 0; i < levelWidth * levelHeight; i++)
+            {
+                ln[i] = 0;
+            }
+            int *it = ln;
             for(int i = 0; i < levelWidth; i++)
             {
-                for(auto i = curLine.begin(); i != curLine.end(); i++)
+                for(auto pos = curLine.begin(); pos != curLine.end(); pos++)
                 {
-                    if(*i==',')
+                    if(*pos==',')
                     {
                         ++it;
                     }
                     else
                     {
-                        *it = *it * 10 + *i-'0';
+                        *it = *it * 10 + *pos-'0';
                     }
                 }
 
                 std::getline(fin, curLine);
             }
-            TileMap cmap;
-            cmap.load("Levels/"+levelName+"/tiles.png", sf::Vector2u(tileWidth, tileHeight),
-                               ln,levelWidth, levelHeight);;
-            mapLayers.push_back(cmap);
-
+            if(layerName!="Collisions" && layerName != "PlayerLayer")
+            {
+                TileMap cmap;
+                cmap.load("Levels/"+levelName+"/tiles.png", sf::Vector2u(tileWidth, tileHeight),
+                          ln,levelWidth, levelHeight);;
+                mapLayers.push_back(cmap);
+                delete[] ln;
+            }
+            else if(layerName == "Collisions")
+            {
+                collisions.resetCollisions(ln, levelWidth, levelHeight, tileWidth, tileHeight);
+                delete[]ln;
+            }
+            else
+            {
+                playerLayer = layerNumber;
+                delete[]ln;
+            }
         }
 
     }
+}
+
+void Level::updateInfo(const float &delta)
+{
+
+    player.handleInput(delta, collisions);
+    camera.setCenter(player.getPosition().x+16.0, player.getPosition().y+16.0);
+    camera.setSize(300,300);
 }

@@ -15,7 +15,6 @@ private:
     void draw();
     void update();
     sf::RenderWindow window;
-    Player player;
     sf::Clock timer;
     Level level;
 
