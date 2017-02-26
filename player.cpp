@@ -32,7 +32,7 @@ void Player::handleInput(const float & delta, Collisions & col)
             playerSpeedY = 1.0;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-                playerSpeedY = -3.0f;
+                playerSpeedY = -2.3f;
             }
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -56,6 +56,12 @@ void Player::handleInput(const float & delta, Collisions & col)
             {
                 move(sf::Vector2f(playerSpeedX,0.0));
             }
+        }
+        else
+        {
+            sprite.setTexture(&aIdle);
+            anim.hold();
+            sprite.setTextureRect(anim.getRect());
         }
 
     }
@@ -110,7 +116,7 @@ void Player::handleInput(const float & delta, Collisions & col)
         else
         {
             sprite.setTexture(&aIdle);
-            anim.hold(delta);
+            anim.hold();
             sprite.setTextureRect(anim.getRect());
         }
     }

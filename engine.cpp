@@ -26,7 +26,6 @@ void Engine::loop()
 
 void Engine::update()
 {
-    float delta = timer.restart().asSeconds();
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -36,7 +35,7 @@ void Engine::update()
         }
     }
 
-    level.updateInfo(delta);
+    level.updateInfo(timer.restart().asSeconds());
 
 }
 

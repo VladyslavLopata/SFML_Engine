@@ -12,7 +12,7 @@ public:
     Collisions();
     ~Collisions();
     void resetCollisions(int *levelMap, int &lWidth, int &lHeigt, int &tWidth, int &tHeight);
-    bool isWall(sf::FloatRect moveDir);
+    bool isWall(const sf::FloatRect & moveDir);
 private:
     std::vector<sf::FloatRect> collisionMap;
     int lWidth, lHeight, tWidth, tHeight;

@@ -38,7 +38,7 @@ void Animator::update(const float &dt)
     }
 }
 
-void Animator::hold(float delta)
+void Animator::hold()
 {
     animRect.left = 0;
     curTime = 0;

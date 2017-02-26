@@ -24,13 +24,8 @@ void Collisions::resetCollisions(int *levelMap,int &lWidth, int &lHeight, int &t
     this->tHeight = tHeight;
 }
 
-bool Collisions::isWall(sf::FloatRect moveDir)
+bool Collisions::isWall(const sf::FloatRect &moveDir)
 {
-    if(moveDir.top < 0 || moveDir.top+moveDir.height > lHeight*tHeight ||
-            moveDir.left < 0 || moveDir.left+moveDir.width > lWidth*tWidth)
-    {
-        return true;
-    }
     sf::FloatRect plBot(moveDir.left+moveDir.width/3, moveDir.top+moveDir.height/2, moveDir.width/3., moveDir.height/2);
     bool intersect = false;
     for(const auto & i : collisionMap)
@@ -38,6 +33,7 @@ bool Collisions::isWall(sf::FloatRect moveDir)
         if(i.intersects(plBot))
         {
             intersect = true;
+            break;
         }
     }
     if(intersect)

@@ -94,6 +94,7 @@ void Level::parseLevelInfo(std::__cxx11::string levelName)
         }
 
     }
+    fin.close();
 }
 
 void Level::updateInfo(const float &delta)
@@ -101,5 +102,5 @@ void Level::updateInfo(const float &delta)
 
     player.handleInput(delta, collisions);
     camera.setCenter(player.getPosition().x+16.0, player.getPosition().y+16.0);
-    camera.setSize(300,300);
+    camera.setSize(400,350);
 }
