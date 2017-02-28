@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "animator.h"
 #include "collisions.h"
+#include <iostream>
 
 class Player : public sf::Drawable, public sf::Transformable
 {

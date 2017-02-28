@@ -9,6 +9,7 @@ void Level::initialize()
 
 void Level::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+    states.transform *= getTransform();
     target.setView(camera);
     for(unsigned i = 0; i < mapLayers.size(); i++)
     {

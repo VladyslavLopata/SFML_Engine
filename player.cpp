@@ -45,7 +45,7 @@ void Player::handleInput(const float & delta, Collisions & col)
             if(!col.isWall(sf::FloatRect(getPosition().x-playerSpeedX*delta, getPosition().y,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(-playerSpeedX*delta,0.0));
+                move(sf::Vector2f(- playerSpeedX*delta,0.0));
             }
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -132,5 +132,4 @@ void Player::init()
     sprite.setSize(sf::Vector2f(aIdle.getSize().x/4, aIdle.getSize().y/4));
     sprite.setTextureRect(sf::IntRect(0,0,aIdle.getSize().x/4, aIdle.getSize().y/4));
     anim.reset(aIdle.getSize(), sf::Vector2f(4,4), 0.2);
-
 }

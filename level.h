@@ -24,7 +24,7 @@ private:
     sf::Texture m_texture;
     Collisions collisions;
     sf::View camera;
-    int playerLayer;
+    unsigned playerLayer;
 };
 
 

@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <cmath>
-#include <memory>
 
 class Collisions
 {
@@ -14,7 +13,7 @@ public:
     void resetCollisions(int *levelMap, int &lWidth, int &lHeigt, int &tWidth, int &tHeight);
     bool isWall(const sf::FloatRect & moveDir);
 private:
-    std::vector<sf::FloatRect> collisionMap;
+    std::vector<int> collisionMap;
     int lWidth, lHeight, tWidth, tHeight;
 };
 

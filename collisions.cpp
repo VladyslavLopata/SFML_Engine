@@ -11,12 +11,10 @@ Collisions::~Collisions()
 void Collisions::resetCollisions(int *levelMap,int &lWidth, int &lHeight, int &tWidth, int &tHeight)
 {
     collisionMap.clear();
-    for(int i = 0; i < lWidth*lHeight; i++)
+    collisionMap.resize(lWidth * lHeight);
+    for(int i = 0; i < lWidth * lHeight; i++)
     {
-        if(levelMap[i])
-        {
-            collisionMap.push_back(sf::FloatRect(i%lWidth*tWidth,i/lHeight*tHeight, tWidth, tHeight));
-        }
+        collisionMap[i] = levelMap[i];
     }
     this->lHeight = lHeight;
     this->lWidth = lWidth;
@@ -26,19 +24,21 @@ void Collisions::resetCollisions(int *levelMap,int &lWidth, int &lHeight, int &t
 
 bool Collisions::isWall(const sf::FloatRect &moveDir)
 {
-    sf::FloatRect plBot(moveDir.left+moveDir.width/3, moveDir.top, moveDir.width/3., moveDir.height);
-    bool intersect = false;
-    for(const auto & i : collisionMap)
-    {
-        if(i.intersects(plBot))
-        {
-            intersect = true;
-            break;
-        }
-    }
-    if(intersect)
+
+    sf::FloatRect plBot(moveDir.left + moveDir.width/3.0, moveDir.top, moveDir.width/3.0, moveDir.height);
+
+    if(plBot.top/tHeight <= 0 || (plBot.top + plBot.height)/tHeight > lHeight
+            || plBot.left/tWidth <= 0 || (plBot.left + plBot.width)/tWidth > lWidth)
     {
         return true;
     }
-    return false;
+
+    int top = plBot.top/tHeight;
+    int left = plBot.left/tWidth;
+    int right = (plBot.left + plBot.width)/tWidth;
+    int bot = (plBot.top + plBot.height)/tHeight;
+
+    return collisionMap[left + top * lWidth] || collisionMap[left + bot*lWidth]
+            ||collisionMap[right + top * lWidth] || collisionMap[right + bot*lWidth];
+
 }
