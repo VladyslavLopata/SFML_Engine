@@ -1,10 +1,5 @@
 #include "tilemap.h"
 
-TileMap::TileMap()
-{
-
-}
-
 bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int *tiles,
                    unsigned int width, unsigned int height)
 {
@@ -40,6 +35,7 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, int *tiles
             quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
             quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
             quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+
         }
 
     return true;

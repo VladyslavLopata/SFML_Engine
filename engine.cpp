@@ -1,16 +1,16 @@
 #include "engine.h"
 
-Engine::Engine() :
-    window{sf::VideoMode{800, 600, 32}, "GameWindow"}
-{
-    timer.restart();
-}
-
 void Engine::start()
 {
+
+    //initialize game objects
+    window.create(sf::VideoMode(800,600,32), "Game Engine");
+    timer.restart();
     level.initialize();
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(120);
+
     loop();
+
 }
 
 void Engine::loop()

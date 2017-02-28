@@ -4,10 +4,6 @@ float playerSpeedX = 100.0f;
 float playerSpeedY = 0.0f;
 float playerAccelerationY = 9.8f;
 
-Player::Player()
-{
-}
-
 void Player::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     states.transform *= getTransform();

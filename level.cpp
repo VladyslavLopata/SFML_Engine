@@ -1,6 +1,9 @@
 #include "level.h"
+
 void Level::initialize()
 {
+
+    //intitalize the level with starting info
     m_texture.loadFromFile("Levels/basicTextures/tiles.png");
     parseLevelInfo("basicTextures");
     player.init();
