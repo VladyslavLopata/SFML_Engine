@@ -1,7 +1,8 @@
 #include "player.h"
 
-float playerSpeedX = 1.0f;
-float playerSpeedY = 1.0f;
+float playerSpeedX = 100.0f;
+float playerSpeedY = 0.0f;
+float playerAccelerationY = 9.8f;
 
 Player::Player()
 {
@@ -21,29 +22,30 @@ void Player::handleInput(const float & delta, Collisions & col)
     if(genre == 0)
     {
 
-        if(!col.isWall(sf::FloatRect(getPosition().x, getPosition().y+playerSpeedY+(playerSpeedY*delta+0.1),
-                                     sprite.getTextureRect().width, sprite.getTextureRect().height)))
+        playerSpeedY += playerAccelerationY*delta;
+        if(!col.isWall(sf::FloatRect(getPosition().x, getPosition().y+playerSpeedY, sprite.getSize().x, sprite.getSize().y)))
         {
-            playerSpeedY += fabs(playerSpeedY*delta+0.1);
-            move(sf::Vector2f(0.0,playerSpeedY));
+            move(0, playerSpeedY);
         }
         else
         {
-            playerSpeedY = 1.0;
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-                playerSpeedY = -2.3f;
-            }
+            playerSpeedY = 0;
+        }
+
+        if(playerSpeedY == 0 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)&&
+                !col.isWall(sf::FloatRect(getPosition().x, getPosition().y-3.6, sprite.getSize().x, sprite.getSize().y)))
+        {
+            playerSpeedY = -3.6;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             anim.setAnimRow(1);
             anim.update(delta);
             sprite.setTextureRect(anim.getRect());
-            if(!col.isWall(sf::FloatRect(getPosition().x-playerSpeedX, getPosition().y,
+            if(!col.isWall(sf::FloatRect(getPosition().x-playerSpeedX*delta, getPosition().y,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(-playerSpeedX,0.0));
+                move(sf::Vector2f(-playerSpeedX*delta,0.0));
             }
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -51,10 +53,10 @@ void Player::handleInput(const float & delta, Collisions & col)
             anim.setAnimRow(2);
             anim.update(delta);
             sprite.setTextureRect(anim.getRect());
-            if(!col.isWall(sf::FloatRect(getPosition().x+playerSpeedX, getPosition().y,
+            if(!col.isWall(sf::FloatRect(getPosition().x+playerSpeedX*delta, getPosition().y,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(playerSpeedX,0.0));
+                move(sf::Vector2f(playerSpeedX*delta,0.0));
             }
         }
         else
@@ -72,10 +74,10 @@ void Player::handleInput(const float & delta, Collisions & col)
             anim.setAnimRow(1);
             anim.update(delta);
             sprite.setTextureRect(anim.getRect());
-            if(!col.isWall(sf::FloatRect(getPosition().x-playerSpeedX, getPosition().y,
+            if(!col.isWall(sf::FloatRect(getPosition().x-playerSpeedX*delta, getPosition().y,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(-playerSpeedX,0.0));
+                move(sf::Vector2f(-playerSpeedX*delta,0.0));
             }
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -83,10 +85,10 @@ void Player::handleInput(const float & delta, Collisions & col)
             anim.setAnimRow(2);
             anim.update(delta);
             sprite.setTextureRect(anim.getRect());
-            if(!col.isWall(sf::FloatRect(getPosition().x+playerSpeedX, getPosition().y,
+            if(!col.isWall(sf::FloatRect(getPosition().x+playerSpeedX*delta, getPosition().y,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(playerSpeedX,0.0));
+                move(sf::Vector2f(playerSpeedX*delta,0.0));
             }
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -94,10 +96,10 @@ void Player::handleInput(const float & delta, Collisions & col)
             anim.setAnimRow(3);
             anim.update(delta);
             sprite.setTextureRect(anim.getRect());
-            if(!col.isWall(sf::FloatRect(getPosition().x, getPosition().y-playerSpeedX,
+            if(!col.isWall(sf::FloatRect(getPosition().x, getPosition().y-playerSpeedX*delta,
                                          sprite.getTextureRect().width, sprite.getTextureRect().height)))
             {
-                move(sf::Vector2f(0.0,-playerSpeedX));
+                move(sf::Vector2f(0.0,-playerSpeedX*delta));
             }
 
         }

@@ -26,7 +26,7 @@ void Collisions::resetCollisions(int *levelMap,int &lWidth, int &lHeight, int &t
 
 bool Collisions::isWall(const sf::FloatRect &moveDir)
 {
-    sf::FloatRect plBot(moveDir.left+moveDir.width/3, moveDir.top+moveDir.height/2, moveDir.width/3., moveDir.height/2);
+    sf::FloatRect plBot(moveDir.left+moveDir.width/3, moveDir.top, moveDir.width/3., moveDir.height);
     bool intersect = false;
     for(const auto & i : collisionMap)
     {
