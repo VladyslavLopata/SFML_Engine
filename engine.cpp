@@ -3,11 +3,13 @@
 void Engine::start()
 {
 
+    const int FRAMERATE = 60;
+
     //initialize game objects
     window.create(sf::VideoMode(800,600,32), "Game Engine");
     timer.restart();
+    window.setFramerateLimit(FRAMERATE);
     level.initialize();
-    window.setFramerateLimit(120);
 
     loop();
 

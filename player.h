@@ -19,6 +19,19 @@ public:
 
 private:
 
+    //supported genres
+    enum Genre
+    {
+        PLATFORMER, RPG
+    };
+
+    //current genre
+    Genre curGenre = PLATFORMER;
+
+    //inputs for each genre
+    void platformerInput(Collisions & col, const float &delta);
+    void RPGInput(Collisions & col, const float &delta);
+
     //draw all the staff to the screen
     virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
@@ -30,6 +43,11 @@ private:
 
     //textures for the animations
     sf::Texture aMoving, aIdle;
+
+    //physics staff
+    sf::Vector2f velocity;
+    sf::Vector2f acceleration;
+    float jumpPower = 4.3f;
 
 };
 
